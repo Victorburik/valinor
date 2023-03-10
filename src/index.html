@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>GitApi</title>
+  <base href="./">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+  <div id="app" class="app">
+    <h1 class="titulo">Buscar Repo no Github</h1>
+    <div class="content-form">
+      <form>
+        <label>Entre com o nome do usuário</label>
+        <input type="text" id="input_user" placeholder="Usuário do Github" />
+        <button type="submit" class="btn-app" onClick="javascript:buscarRepo();">Buscar</button>
+      </form>
+    </div>
+
+    <div class="content-list">
+      <div class="content-list-container">
+        <ul></ul>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <script type="text/javascript">
+
+    var appForm = document.querySelector("#app form");
+    var listaEl = document.querySelector("#app ul");
+    var divEl = document.querySelector(".content-list-container");
+    //obj requiq.
+    var xhttp = new XMLHttpRequest();
+    var url_base = 'https://api.github.com/';
+    //armazenamento dos dados
+    var lista = [];
+
+    appForm.onsubmit = buscarRepo;
+
+    function buscarRepo(e) {
+      //todo submit n deixa recarregar a tela
+      e.preventDefault();
+
+      // pegar os dados digitados
+      var user = document.getElementById("input_user").value;
+      //valida se está com dados
+      if (user.length === 0) {
+        alert("Por favor, preencha o nome do usuário");
+        return;
+      }
+
+      var url = url_base + 'users/' + user + '/repos';
+      xhttp.open('GET', url);
+      xhttp.send();
+      //verificando status da requi.
+      xhttp.onreadystatechange = function () {
+        //Requi. finalizada e resposta pronta
+        if (xhttp.readyState === 4) {
+          //verifico se está ok
+          if (xhttp.status === 200) {
+            //retorno a resposta como string e em seguida tranforma a msm em json
+            var result = JSON.parse(xhttp.responseText);
+
+            lista = result.map(function (item) {
+              return {
+                name: item.name,
+                description: item.description,
+                html_url: item.html_url,
+                watchers: item.watchers,
+              };
+            });
+            renderLista();
+          }
+          else {
+            alert('Falha ao buscar usuário.');
+          }
+        }
+      }
+    }
+
+    function renderLista() {
+      listaEl.innerHTML = '';
+
+      for (item of lista) {
+        var itemNM = document.createElement('div');
+
+        itemNM.innerHTML = `
+        <div class="fundo-conteudo">
+          <h1 class="nome-repo"><span>Nome do repositório:<br></span> ${item.name}</h1>
+          <p class="desc-repo">Descrição do projeto: <span>${item.description}</span></p>
+          <h4 class="url-repo">Url: <span>${item.html_url}</span></h4>
+          <h4 class="watchers-repo">Quantidade de watchers: <span>${item.watchers}</span></h4>
+        </div>
+        `
+        divEl.appendChild(itemNM);
+      }
+    }
+  </script>
+</body>
+<app-root></app-root>
+
+</html>

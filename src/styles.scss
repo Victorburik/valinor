@@ -1,0 +1,128 @@
+$colorVerd: #008000;
+$colorPreta: #000;
+$colorBranco: #fff;
+$colorDourado: #daa520;
+
+* {
+    box-sizing: border-box;
+    outline: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: $colorPreta;
+
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1.titulo {
+        font-size: 3rem;
+        color: $colorVerd;
+    }
+
+    .content-form {
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid $colorVerd;
+            padding: 2rem 9rem;
+            border-radius: 2rem .75rem 2rem .75rem;
+
+            label {
+                color: $colorBranco;
+                font-size: 1.25rem;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            input {
+                padding: 0.5rem 2rem;
+                border-radius: 7rem;
+                margin: 1rem 0;
+            }
+
+            button.btn-app {
+                border-radius: 5rem;
+                padding: 0.75rem 3rem;
+                color: $colorBranco;
+                background: $colorVerd;
+                text-transform: uppercase;
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .content-list {
+        .content-list-container {
+            padding: 0rem 10rem;
+
+            .fundo-conteudo {
+                background-color: $colorBranco;
+                padding: 1rem;
+                border-radius: 2rem;
+                margin: 2rem 0;
+
+                h1.nome-repo {
+                    color: $colorVerd;
+                    font-size: 2rem;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    text-align: center;
+
+                    span {
+                        font-size: 1.5rem;
+                        text-transform: capitalize;
+                        color: $colorPreta;
+                    }
+                }
+
+                p.desc-repo {
+                    color: $colorPreta;
+                    font-size: 1.5rem;
+                    font-weight: 500;
+                    
+                    span {
+                        color: $colorDourado;
+                        font-weight: 600;
+                        font-size: 1.75rem;
+                    }
+                }
+
+                h4.url-repo {
+                    color: $colorPreta;
+                    font-size: 1.5rem;
+                    font-weight: 500;
+
+                    span {
+                        color: $colorDourado;
+                        font-weight: 600;
+                        font-size: 1.75rem;
+                    }
+                }
+
+                h4.watchers-repo {
+                    color: $colorPreta;
+                    font-size: 1.5rem;
+                    font-weight: 500;
+
+                    span {
+                        color: $colorDourado;
+                        font-weight: 600;
+                        font-size: 1.75rem;
+                    }
+                }
+            }
+        }
+    }
+}
